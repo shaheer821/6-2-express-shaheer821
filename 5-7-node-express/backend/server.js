@@ -5,21 +5,16 @@ import { getRandomQuote } from "./quotes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware: Enable CORS for all routes
-app.use(cors());
-
-// Middleware: Parse JSON bodies
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-// Route: GET /api/quote - Returns a random quote
 app.get("/api/quote", (req, res) => {
   const quote = getRandomQuote();
-  res.json(quote);
+  res.json({ quote });               
 });
 
-//Route: GET / - Health check
 app.get("/", (req, res) => {
-  res.json({ message: "Quote API is running!" });
+  res.json({ message: "Quote API is running" });
 });
 
 app.listen(PORT, () => {
